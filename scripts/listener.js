@@ -19,6 +19,12 @@ quick_sort_btn.addEventListener("click", () => {
     quick_sort(0, arr.length - 1);
 });
 
+const counting_sort_btn = document.querySelector(".counting-sort-btn");
+counting_sort_btn.addEventListener("click", () => {
+    counting_sort();
+});
+
+
 const sleep_time_text = document.querySelector(".sleep-time-text");
 sleep_time_text.addEventListener("change", e => {
     sleepTime = e.currentTarget.value;

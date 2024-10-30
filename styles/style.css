@@ -1,3 +1,8 @@
+body, button, label, input {
+  font-family: "Playwrite GB S", cursive;
+  font-weight: 400;
+}
+
 body {
   background-color: rgb(39, 39, 39);
   display: flex;
@@ -9,8 +14,9 @@ body .btns-container {
   margin-bottom: 3rem;
 }
 body .btns-container button {
-  width: 5rem;
+  width: 7rem;
   height: 3rem;
+  border-radius: 1rem;
 }
 body label {
   color: white;

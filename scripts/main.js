@@ -14,7 +14,7 @@ function sleep(ms) {
 }
 
 function resetArr() {
-    for(let i = 0; i <= 99; i++) arr[i] = 0;
+    arr = new Array(100).fill(0);
     for(let i = 1; i <= 100; i++) {
         do {
             let index = Math.floor(Math.random() * 100);
@@ -32,6 +32,7 @@ function draw() {
 
     for(let i = 0; i < 100; i++) {
         if(i == cur) ctx.fillStyle = "red";
+        else if(i + 1 == arr[i]) ctx.fillStyle = "lightgreen";
         else ctx.fillStyle = "white";
         ctx.fillRect(i * unit, (100 - arr[i]) * unit, unit, arr[i] * unit);
     }
