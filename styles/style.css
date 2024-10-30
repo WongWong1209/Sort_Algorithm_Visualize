@@ -1,0 +1,15 @@
+body {
+  background-color: rgb(79, 79, 79);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+body .btns-container {
+  margin-top: 3rem;
+}
+body canvas {
+  margin: 3rem 0rem;
+  background-color: rgb(35, 35, 35);
+  max-width: 90vw;
+  width: 30vw;
+}/*# sourceMappingURL=style.css.map */
