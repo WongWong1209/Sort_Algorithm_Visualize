@@ -24,6 +24,11 @@ counting_sort_btn.addEventListener("click", () => {
     counting_sort();
 });
 
+const radix_sort_btn = document.querySelector(".radix-sort-btn");
+radix_sort_btn.addEventListener("click", () => {
+    radix_sort();
+});
+
 
 const sleep_time_text = document.querySelector(".sleep-time-text");
 sleep_time_text.addEventListener("change", e => {
