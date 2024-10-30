@@ -5,11 +5,21 @@ body {
   align-items: center;
 }
 body .btns-container {
-  margin-top: 3rem;
+  margin-top: 1.5rem;
+  margin-bottom: 3rem;
 }
 body .btns-container button {
   width: 5rem;
   height: 3rem;
+}
+body label {
+  color: white;
+  margin-bottom: 0.5rem;
+}
+body .sleep-time-text {
+  width: 5rem;
+  height: 2rem;
+  text-align: center;
 }
 body canvas {
   margin: 3rem 0rem;

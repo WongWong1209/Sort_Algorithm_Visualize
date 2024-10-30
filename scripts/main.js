@@ -1,8 +1,8 @@
 const canvas = document.getElementById('panel');
 const ctx = canvas.getContext('2d');
 const unit = 8;
-const sleepTime = 5;
 
+let sleepTime = 5;
 let arr = [];
 let cur = -1;
 
