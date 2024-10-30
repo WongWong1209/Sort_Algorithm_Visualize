@@ -1,17 +1,27 @@
 body {
-    background-color: rgb(79, 79, 79);
+    background-color: rgb(39, 39, 39);
     display: flex;
     flex-direction: column;
     align-items: center;
 
     .btns-container {
         margin-top: 3rem;
+
+        button {
+            width: 5rem;
+            height: 3rem;
+        }
     }
 
     canvas {
         margin: 3rem 0rem;
-        background-color: rgb(35, 35, 35);
+        width: 600px;
         max-width: 90vw;
-        width: 30vw;
+    }
+
+    .reset-btn {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 2rem;
     }
 }
