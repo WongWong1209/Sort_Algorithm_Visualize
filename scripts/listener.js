@@ -29,6 +29,11 @@ radix_sort_btn.addEventListener("click", () => {
     radix_sort();
 });
 
+const cocktail_sort_btn = document.querySelector(".cocktail-sort-btn");
+cocktail_sort_btn.addEventListener("click", () => {
+    cocktail_sort();
+});
+
 
 const sleep_time_text = document.querySelector(".sleep-time-text");
 sleep_time_text.addEventListener("change", e => {

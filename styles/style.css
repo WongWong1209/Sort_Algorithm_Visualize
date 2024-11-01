@@ -29,7 +29,7 @@ body .sleep-time-text {
 }
 body canvas {
   margin: 3rem 0rem;
-  width: 600px;
+  width: 400px;
   max-width: 90vw;
 }
 body .reset-btn {
