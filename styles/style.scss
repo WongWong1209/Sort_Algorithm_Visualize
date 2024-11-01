@@ -3,11 +3,43 @@ body, button, label, input {
     font-weight: 400;
 }
 
+button {
+    cursor: pointer;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
 body {
     background-color: rgb(39, 39, 39);
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .navbar {
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        background-color: rgb(24, 24, 24);
+
+        ul {
+            display: flex;
+            list-style: none;
+
+            li {
+                margin: 1rem 1rem;
+
+                a {
+                    text-decoration: none;
+                    cursor: pointer;
+                    color: white;
+                    border: none;
+                }
+            }
+        }
+    }
 
     .btns-container {
         margin-top: 1.5rem;
