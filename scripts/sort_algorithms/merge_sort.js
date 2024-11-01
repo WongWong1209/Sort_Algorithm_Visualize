@@ -42,8 +42,8 @@ async function mergeSortHelper(data, start, end, sleepTime) {
     if (start >= end) return;
     
     const mid = Math.floor((start + end) / 2);
-    await mergeSortHelper(data, start, mid);
-    await mergeSortHelper(data, mid + 1, end);
+    await mergeSortHelper(data, start, mid, sleepTime);
+    await mergeSortHelper(data, mid + 1, end, sleepTime);
     await merge(data, start, mid, end, sleepTime);
 }
 

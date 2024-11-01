@@ -84,6 +84,7 @@ cocktail_sort_btn.addEventListener("click", () => {
 
 
 const sleep_time_text = document.querySelector(".sleep-time-text");
+sleep_time_text.value = sleepTime;
 sleep_time_text.addEventListener("change", e => {
     sleepTime = e.currentTarget.value;
 });
