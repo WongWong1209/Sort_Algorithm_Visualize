@@ -1,0 +1,104 @@
+body, button, label, input {
+  font-family: "Playwrite GB S", cursive;
+  font-weight: 400;
+}
+
+button {
+  cursor: pointer;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: rgb(39, 39, 39);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+body .navbar {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(24, 24, 24);
+}
+body .navbar ul {
+  display: flex;
+  list-style: none;
+}
+body .navbar ul li {
+  margin: 1rem 1rem;
+}
+body .navbar ul li a {
+  text-decoration: none;
+  cursor: pointer;
+  color: white;
+  border: none;
+}
+
+body {
+  height: 100vh;
+}
+body .parts-container {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100vw;
+  margin-top: 3rem;
+}
+body .parts-container .parts {
+  width: 30%;
+}
+body .parts-container .checkboxes-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+body .parts-container .checkboxes-container label {
+  color: white;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+body .parts-container .canvases-container {
+  flex-grow: 3;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+body .parts-container .canvases-container div {
+  margin: 0.5rem;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+body .parts-container .canvases-container div label {
+  color: white;
+}
+body .parts-container .canvases-container div canvas {
+  width: 100%;
+  border: 1px white solid;
+}
+body .parts-container .setting-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body .parts-container .setting-container .setting-outer {
+  display: flex;
+  flex-direction: column;
+}
+body .parts-container .setting-container label {
+  color: white;
+}
+body .parts-container .setting-container button {
+  width: 6rem;
+  height: 2rem;
+}/*# sourceMappingURL=multiple.css.map */

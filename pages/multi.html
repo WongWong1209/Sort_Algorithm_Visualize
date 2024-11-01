@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sort Visualizer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles/multiple.css">
 </head>
+
 <body>
     <nav class="navbar">
         <ul>
@@ -16,5 +19,51 @@
             <li><a href="#">Multiple</a></li>
         </ul>
     </nav>
+
+    <section class="parts-container">
+        <section class="parts checkboxes-container">
+            <div class="outer">
+                <div>
+                    <input type="checkbox" name="" id="bubble-btn" class="sort-checkboxes">
+                    <label for="bubble-btn">Bubble Sort</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="" id="merge-btn" class="sort-checkboxes">
+                    <label for="merge-btn">Merge Sort</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="" id="quick-btn" class="sort-checkboxes">
+                    <label for="quick-btn">Quick Sortt</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="" id="counting-btn" class="sort-checkboxes">
+                    <label for="counting-btn">Counting Sort</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="" id="radix-btn" class="sort-checkboxes">
+                    <label for="radix-btn">Radix Sort</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="" id="cocktail-btn" class="sort-checkboxes">
+                    <label for="cocktail-btn">Cocktail Sort</label>
+                </div>
+            </div>
+        </section>
+        <section class="parts canvases-container"></section>
+        <section class="parts setting-container">
+            <div class="setting-outer">
+                <div>
+                    <label>Sleep Time(ms):</label>
+                    <input type="text" class="sleep-time-text" value="5">
+                </div>
+                <button id="start-btn">Start</button>
+                <button id="reset-btn">Reset</button>
+            </div>
+        </section>
+    </section>
+
+    <script src="../scripts/dataset.js"></script>
+    <script src="../scripts/multi_draw.js" type="module"></script>
 </body>
+
 </html>

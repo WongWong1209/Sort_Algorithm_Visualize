@@ -40,38 +40,4 @@ body {
             }
         }
     }
-
-    .btns-container {
-        margin-top: 1.5rem;
-        margin-bottom: 3rem;
-
-        button {
-            width: 7rem;
-            height: 3rem;
-            border-radius: 1rem;
-        }
-    }
-
-    label {
-        color: white;
-        margin-bottom: 0.5rem;
-    }
-
-    .sleep-time-text {
-        width: 5rem;
-        height: 2rem;
-        text-align: center;
-    }
-
-    canvas {
-        margin: 3rem 0rem;
-        width: 400px;
-        max-width: 90vw;
-    }
-
-    .reset-btn {
-        width: 4rem;
-        height: 4rem;
-        border-radius: 2rem;
-    }
 }

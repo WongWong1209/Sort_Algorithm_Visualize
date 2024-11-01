@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/single.css">
 </head>
 <body>
     <nav class="navbar">
@@ -26,16 +26,10 @@
     </div>
     <label>Sleep Time(ms):</label>
     <input type="text" class="sleep-time-text" value="5">
-    <canvas width="800" height="800" id="panel"></canvas>
+    <canvas width="800" height="800" id="all-canvas"></canvas>
     <button type="button" class="reset-btn">reset</button>
 
-    <script src="./scripts/main.js"></script>
-    <script src="./scripts/listener.js"></script>
-    <script src="./scripts/bubble_sort.js"></script>
-    <script src="./scripts/merge_sort.js"></script>
-    <script src="./scripts/quick_sort.js"></script>
-    <script src="./scripts/counting_sort.js"></script>
-    <script src="./scripts/radix_sort.js"></script>
-    <script src="./scripts/cocktail_sort.js"></script>
+    <script src="./scripts/main.js" type="module"></script>
+    <script src="./scripts/dataset.js"></script>
 </body>
 </html>
