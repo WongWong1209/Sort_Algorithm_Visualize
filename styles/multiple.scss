@@ -56,20 +56,27 @@ body {
             flex-grow: 1;
             display: flex;
             justify-content: center;
-            align-items: center;
 
             .setting-outer {
                 display: flex;
                 flex-direction: column;
             }
 
-            label {
-                color: white;
+            div {
+                label {
+                    color: white;
+                }
+
+                input {
+                    width: 6rem;
+                    text-align: center;
+                }
             }
 
             button {
                 width: 6rem;
                 height: 2rem;
+                margin-top: 0.5rem;
             }
         }
     }

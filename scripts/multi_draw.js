@@ -14,14 +14,14 @@ draw();
 
 function resetArr() {
     default_arr = new Array(100).fill(0);
-    for(let i = 1; i <= 100; i++) {
+    for (let i = 1; i <= 100; i++) {
         do {
             let index = Math.floor(Math.random() * 100);
-            if(!default_arr[index]) {
+            if (!default_arr[index]) {
                 default_arr[index] = i;
                 break;
             }
-        } while(true);
+        } while (true);
     }
 
     data_arr.forEach(e => {
@@ -34,6 +34,7 @@ function draw() {
 }
 
 const sleep_time_text = document.querySelector(".sleep-time-text");
+sleep_time_text.value = sleepTime;
 sleep_time_text.addEventListener("change", e => {
     sleepTime = e.currentTarget.value;
 });
@@ -41,7 +42,7 @@ sleep_time_text.addEventListener("change", e => {
 const start_btn = document.querySelector("#start-btn");
 start_btn.addEventListener("click", () => {
     data_arr.forEach(d => {
-        switch(d.type) {
+        switch (d.type) {
             case "bubble":
                 bubble_sort(d, sleepTime);
                 break;
@@ -64,14 +65,14 @@ start_btn.addEventListener("click", () => {
     });
 });
 
-Array.prototype.removeType = function(type) {
+Array.prototype.removeType = function (type) {
     let index = -1;
-    
+
     this.forEach((e, i) => {
-        if(e.type == type) index = i;
+        if (e.type == type) index = i;
     })
 
-    if(index != -1) {
+    if (index != -1) {
         let rest = this.slice(index + 1);
         this.length = index;
         return this.push.apply(this, rest);
@@ -83,23 +84,13 @@ Array.prototype.removeType = function(type) {
 
 const sort_checkboxes = document.querySelectorAll(".sort-checkboxes");
 sort_checkboxes.forEach(checkbox => {
-    checkbox.checked = false;
+    checkbox.checked = true;
+    createElement(checkbox.id.split("-")[0]);
     checkbox.addEventListener("change", e => {
         const id = e.currentTarget.id.split("-")[0];
 
-        if(e.currentTarget.checked) {
-            const canvases_container = document.querySelector(".canvases-container");
-            const new_canvas = document.createElement("div");
-
-            new_canvas.id = `${id}-div`;
-            new_canvas.innerHTML = `<label>${id} sort</label><canvas id="${id}-canvas" width="800" height="800"></canvas>`;
-
-            canvases_container.appendChild(new_canvas);
-
-            let new_data = new Dataset(id)
-            new_data.arr = [...default_arr];
-            new_data.draw();
-            data_arr.push(new_data);
+        if (e.currentTarget.checked) {
+            createElement(id);
         }
         else {
             const deleted_canvas = document.querySelector(`#${id}-div`);
@@ -108,6 +99,21 @@ sort_checkboxes.forEach(checkbox => {
         }
     });
 });
+
+function createElement(id) {
+    const canvases_container = document.querySelector(".canvases-container");
+    const new_canvas = document.createElement("div");
+
+    new_canvas.id = `${id}-div`;
+    new_canvas.innerHTML = `<label>${id} sort</label><canvas id="${id}-canvas" width="800" height="800"></canvas>`;
+
+    canvases_container.appendChild(new_canvas);
+
+    let new_data = new Dataset(id)
+    new_data.arr = [...default_arr];
+    new_data.draw();
+    data_arr.push(new_data);
+}
 
 const reset_btn = document.querySelector("#reset-btn");
 reset_btn.addEventListener("click", () => {

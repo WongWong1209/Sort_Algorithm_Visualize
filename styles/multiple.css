@@ -89,16 +89,20 @@ body .parts-container .setting-container {
   flex-grow: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 body .parts-container .setting-container .setting-outer {
   display: flex;
   flex-direction: column;
 }
-body .parts-container .setting-container label {
+body .parts-container .setting-container div label {
   color: white;
+}
+body .parts-container .setting-container div input {
+  width: 6rem;
+  text-align: center;
 }
 body .parts-container .setting-container button {
   width: 6rem;
   height: 2rem;
+  margin-top: 0.5rem;
 }/*# sourceMappingURL=multiple.css.map */
