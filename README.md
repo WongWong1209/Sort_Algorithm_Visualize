@@ -12,9 +12,9 @@ A website designed for visualizing sorting algorithms to make them easier to com
 * Cocktail Sort
 
 ## Screenshots
-![圖片](https://github.com/user-attachments/assets/a607579b-cc99-4a5a-a75b-25f471a254a9)
-![圖片](https://github.com/user-attachments/assets/57087d32-882b-45fc-85f9-e8d8aea6aa4b)
-![圖片](https://github.com/user-attachments/assets/8f697073-78cd-4d14-afa1-dad6c3ea0d06)
+![圖片](https://github.com/user-attachments/assets/fa21f41f-ebda-4a89-8a3f-89c88eae977b)
+![圖片](https://github.com/user-attachments/assets/7d9805c1-399a-4ec8-aceb-fdb8a17dfdd5)
+![圖片](https://github.com/user-attachments/assets/8a07d5b8-2a2c-42db-9254-90c2efe186d4)
 ![圖片](https://github.com/user-attachments/assets/185bbe0a-4bee-4955-9723-43f25459e205)
 ![圖片](https://github.com/user-attachments/assets/362370bd-d750-4bd2-9d99-7aa815717dc2)
 ![圖片](https://github.com/user-attachments/assets/bba94237-1354-4bd4-8882-fec2bb3631fe)
