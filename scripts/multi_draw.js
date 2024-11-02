@@ -82,11 +82,31 @@ Array.prototype.removeType = function (type) {
     }
 };
 
+const all_check_checkbox = document.querySelector("#all-btn");
+all_check_checkbox.checked = false;
+all_check_checkbox.addEventListener("change", e => {
+    sort_checkboxes.forEach(checkbox => {
+        if(checkbox.checked != e.currentTarget.checked) {
+            checkbox.checked = e.currentTarget.checked;
+
+            const id = checkbox.id.split("-")[0]
+            if (e.currentTarget.checked) {
+                createElement(id);
+            }
+            else {
+                const deleted_canvas = document.querySelector(`#${id}-div`);
+                deleted_canvas.remove();
+                data_arr.removeType(id);
+            }
+        }
+    });
+});
+
 const sort_checkboxes = document.querySelectorAll(".sort-checkboxes");
 sort_checkboxes.forEach(checkbox => {
-    checkbox.checked = true;
-    createElement(checkbox.id.split("-")[0]);
+    checkbox.checked = false;
     checkbox.addEventListener("change", e => {
+        checkIfAllChecked();
         const id = e.currentTarget.id.split("-")[0];
 
         if (e.currentTarget.checked) {
@@ -99,6 +119,15 @@ sort_checkboxes.forEach(checkbox => {
         }
     });
 });
+
+function checkIfAllChecked() {
+    if([...sort_checkboxes].every(checkbox => checkbox.checked == true)) {
+        all_check_checkbox.checked = true;
+    }
+    else {
+        all_check_checkbox.checked = false;
+    }
+}
 
 function createElement(id) {
     const canvases_container = document.querySelector(".canvases-container");
