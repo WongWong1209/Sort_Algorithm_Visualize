@@ -1,6 +1,7 @@
 export {bubble_sort};
 
 async function bubble_sort(data, sleepTime) {
+    data.start_time = new Date().getTime();
     let count = 0;
     for(let i = 0; i < 99; i++) {
         for(let j = 0; j < 99 - i; j++) {
@@ -17,6 +18,8 @@ async function bubble_sort(data, sleepTime) {
     }
 
     data.cur = -1;
+    data.end_time = new Date().getTime();
+    data.setTimeText();
     data.draw();
 }
 

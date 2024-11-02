@@ -48,8 +48,11 @@ async function mergeSortHelper(data, start, end, sleepTime) {
 }
 
 async function merge_sort(data, sleepTime) {
+    data.start_time = new Date().getTime();
     await mergeSortHelper(data, 0, data.arr.length - 1, sleepTime);
     data.cur = -1;
+    data.end_time = new Date().getTime();
+    data.setTimeText();
     data.draw();
 }
 

@@ -1,6 +1,7 @@
 export {cocktail_sort};
 
 async function cocktail_sort(data, sleepTime) {
+    data.start_time = new Date().getTime();
     let start = 0;
     let end = data.arr.length - 1;
     let swapped = true;
@@ -39,6 +40,8 @@ async function cocktail_sort(data, sleepTime) {
     }
     
     data.cur = -1;
+    data.end_time = new Date().getTime();
+    data.setTimeText();
     data.draw();
 }
 

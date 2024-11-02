@@ -5,7 +5,7 @@ import { merge_sort } from './sort_algorithms/merge_sort.js';
 import { quick_sort } from './sort_algorithms/quick_sort.js';
 import { radix_sort } from './sort_algorithms/radix_sort.js';
 
-let sleepTime = 5;
+let sleepTime = 0;
 let default_arr = [];
 let data_arr = [];
 
@@ -50,6 +50,7 @@ start_btn.addEventListener("click", () => {
                 merge_sort(d, sleepTime);
                 break;
             case "quick":
+                d.start_time = new Date().getTime();
                 quick_sort(d, 0, default_arr.length - 1, sleepTime);
                 break;
             case "counting":
@@ -134,7 +135,7 @@ function createElement(id) {
     const new_canvas = document.createElement("div");
 
     new_canvas.id = `${id}-div`;
-    new_canvas.innerHTML = `<label>${id} sort</label><canvas id="${id}-canvas" width="800" height="800"></canvas>`;
+    new_canvas.innerHTML = `<label>${id} sort</label><label id="${id}-time" class="timer">0 s</label><canvas id="${id}-canvas" width="800" height="800"></canvas>`;
 
     canvases_container.appendChild(new_canvas);
 
@@ -146,6 +147,8 @@ function createElement(id) {
 
 const reset_btn = document.querySelector("#reset-btn");
 reset_btn.addEventListener("click", () => {
+    let time_text = document.querySelectorAll(".timer");
+    time_text.forEach(text => text.textContent = "0 s");
     resetArr();
     draw();
 });

@@ -28,6 +28,8 @@ async function quick_sort(data, low, high, sleepTime) {
         await quick_sort(data, pivot + 1, high, sleepTime);
     }
     data.cur = -1;
+    data.end_time = new Date().getTime();
+    data.setTimeText();
     data.draw();
 }
 

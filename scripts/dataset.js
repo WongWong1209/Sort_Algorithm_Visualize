@@ -3,6 +3,8 @@ class Dataset {
         this.type = type;
         this.arr = [];
         this.cur = -1;
+        this.start_time;
+        this.end_time;
     }
 
     draw() {
@@ -19,5 +21,11 @@ class Dataset {
             else ctx.fillStyle = "white";
             ctx.fillRect(i * unit, (100 - this.arr[i]) * unit, unit, this.arr[i] * unit);
         }
+    }
+
+    setTimeText() {
+        let time = (this.end_time - this.start_time) / 1000;
+        let time_text = document.querySelector(`#${this.type}-time`);
+        time_text.innerText = `${time} s`;
     }
 }

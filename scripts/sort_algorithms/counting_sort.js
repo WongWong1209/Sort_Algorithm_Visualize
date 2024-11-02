@@ -1,6 +1,7 @@
 export {counting_sort};
 
 async function counting_sort(data, sleepTime) {
+    data.start_time = new Date().getTime();
     let max = Math.max(...data.arr);
     let min = Math.min(...data.arr);
     let range = max - min + 1;
@@ -28,6 +29,8 @@ async function counting_sort(data, sleepTime) {
     }
 
     data.cur = -1;
+    data.end_time = new Date().getTime();
+    data.setTimeText();
     data.draw();
 }
 

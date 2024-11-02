@@ -28,6 +28,7 @@ async function countingSortForRadix(data, exp, sleepTime) {
 }
 
 async function radix_sort(data, sleepTime) {
+    data.start_time = new Date().getTime();
     let max = Math.max(...data.arr);
 
     for (let exp = 1; Math.floor(max / exp) > 0; exp *= 10) {
@@ -35,6 +36,8 @@ async function radix_sort(data, sleepTime) {
     }
 
     data.cur = -1;
+    data.end_time = new Date().getTime();
+    data.setTimeText();
     data.draw();
 }
 

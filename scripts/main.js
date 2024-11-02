@@ -5,7 +5,7 @@ import { merge_sort } from './sort_algorithms/merge_sort.js';
 import { quick_sort } from './sort_algorithms/quick_sort.js';
 import { radix_sort } from './sort_algorithms/radix_sort.js';
 
-let sleepTime = 5;
+let sleepTime = 0;
 let data = new Dataset("all");;
 let default_arr = [];
 const canvas = document.querySelector("canvas");
