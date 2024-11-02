@@ -1,5 +1,5 @@
 # Sort Algorithm Visualize Website
-a website made for visualize sort algorithm to make them more easier to compare with each other and understand.
+A website designed for visualizing sorting algorithms to make them easier to compare and understand.
 
 [Website Link](https://wongwong1209.github.io/Sort_Algorithm_Visualize/)
 
