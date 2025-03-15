@@ -3,6 +3,10 @@ A website designed for visualizing sorting algorithms to make them easier to com
 
 [Website Link](https://wongwong1209.github.io/Sort_Algorithm_Visualize/)
 
+:::danger
+there are still some bugs, but I am currently lazy... I mean busy at other project.
+:::
+
 ## Current Algorithm
 * Bubble Sort
 * Quick Sort
