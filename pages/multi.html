@@ -1,92 +1,191 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#101110" />
+    <title>Sort Lab — Compare algorithms</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles/multiple.css" />
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sort Visualizer</title>
-    <link rel="stylesheet" href="../styles/multiple.css">
-</head>
-
-<body>
-    <nav class="navbar">
-        <ul>
-            <li><a href="../index.html">Single</a></li>
-            <li><a href="#">Multiple</a></li>
-        </ul>
+  <body>
+    <nav class="navbar" aria-label="Main navigation">
+      <a class="brand" href="../index.html" aria-label="Sort Lab home"
+        ><span class="brand-symbol" aria-hidden="true">S/</span
+        ><span>SORT LAB</span></a
+      >
+      <ul>
+        <li><a href="../index.html">Study</a></li>
+        <li><a href="./multi.html" aria-current="page">Compare</a></li>
+      </ul>
     </nav>
 
+    <header class="comparison-intro">
+      <h1>Let's see how different algorithms perform!</h1>
+      <p>
+        Run the same values through multiple algorithms and compare how they get
+        there.
+      </p>
+    </header>
+
     <section class="parts-container">
-        <section class="parts checkboxes-container">
-            <div class="outer">
-                <div>
-                    <input type="checkbox" name="" id="all-btn">
-                    <label for="all-btn">all</label>
-                </div>
-                <div>
-                    <input type="checkbox" name="" id="bubble-btn" class="sort-checkboxes">
-                    <label for="bubble-btn">Bubble Sort</label>
-                </div>
-                <div>
-                    <input type="checkbox" name="" id="merge-btn" class="sort-checkboxes">
-                    <label for="merge-btn">Merge Sort</label>
-                </div>
-                <div>
-                    <input type="checkbox" name="" id="quick-btn" class="sort-checkboxes">
-                    <label for="quick-btn">Quick Sortt</label>
-                </div>
-                <div>
-                    <input type="checkbox" name="" id="counting-btn" class="sort-checkboxes">
-                    <label for="counting-btn">Counting Sort</label>
-                </div>
-                <div>
-                    <input type="checkbox" name="" id="radix-btn" class="sort-checkboxes">
-                    <label for="radix-btn">Radix Sort</label>
-                </div>
-                <div>
-                    <input type="checkbox" name="" id="cocktail-btn" class="sort-checkboxes">
-                    <label for="cocktail-btn">Cocktail Sort</label>
-                </div>
+      <section class="parts checkboxes-container">
+        <div class="outer">
+          <h2>Algorithms</h2>
+          <p id="selected-count">0 selected</p>
+          <div>
+            <input type="checkbox" name="" id="all-btn" />
+            <label for="all-btn">Select all</label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              name=""
+              id="bubble-btn"
+              class="sort-checkboxes"
+            />
+            <label for="bubble-btn">Bubble Sort</label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              name=""
+              id="merge-btn"
+              class="sort-checkboxes"
+            />
+            <label for="merge-btn">Merge Sort</label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              name=""
+              id="quick-btn"
+              class="sort-checkboxes"
+            />
+            <label for="quick-btn">Quick Sort</label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              name=""
+              id="counting-btn"
+              class="sort-checkboxes"
+            />
+            <label for="counting-btn">Counting Sort</label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              name=""
+              id="radix-btn"
+              class="sort-checkboxes"
+            />
+            <label for="radix-btn">Radix Sort</label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              name=""
+              id="cocktail-btn"
+              class="sort-checkboxes"
+            />
+            <label for="cocktail-btn">Cocktail Sort</label>
+          </div>
+        </div>
+      </section>
+      <section class="parts canvases-container">
+        <div class="visual-key" aria-label="Visualization colors">
+          <span class="key-active">Current</span>
+          <span class="key-reference">Reference</span>
+          <span class="key-range">Working range</span>
+          <span class="key-complete">Sorted</span>
+        </div>
+        <div id="empty-state" class="empty-state">
+          <div class="empty-content">
+            <span>Start with a contrast</span>
+            <h2>Same values. Two different routes.</h2>
+            <p>
+              Try Bubble and Quick together. One repeatedly swaps neighbors; the
+              other partitions around a pivot.
+            </p>
+            <ul>
+              <li>
+                <strong>Bubble</strong
+                ><span
+                  >Watch pairs move and the largest value settle at the
+                  right.</span
+                >
+              </li>
+              <li>
+                <strong>Quick</strong
+                ><span>Watch the pivot and the active partition.</span>
+              </li>
+              <li>
+                <strong>Compare</strong
+                ><span
+                  >See how many comparisons and array writes each route
+                  needs.</span
+                >
+              </li>
+            </ul>
+            <button id="compare-example" type="button">
+              Select Bubble + Quick
+            </button>
+          </div>
+        </div>
+      </section>
+      <section class="parts setting-container">
+        <div class="setting-outer">
+          <h2>Run settings</h2>
+          <div class="data-controls">
+            <label for="array-size">Items</label>
+            <select id="array-size">
+              <option value="20" selected>20</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+            <label for="array-pattern">Starting order</label>
+            <select id="array-pattern">
+              <option value="random">Random</option>
+              <option value="reversed">Reversed</option>
+              <option value="nearly-sorted">Nearly sorted</option>
+            </select>
+          </div>
+          <div>
+            <div class="speed-heading">
+              <label for="multi-delay">Step delay</label
+              ><output id="multi-delay-value" for="multi-delay">60 ms</output>
             </div>
-        </section>
-        <section class="parts canvases-container">
-            <div class="visual-key" aria-label="Visualization colors">
-                <span class="key-active">Current</span>
-                <span class="key-reference">Reference</span>
-                <span class="key-range">Active range</span>
-                <span class="key-complete">Finished</span>
-            </div>
-        </section>
-        <section class="parts setting-container">
-            <div class="setting-outer">
-                <div class="data-controls">
-                    <label for="array-size">Items</label>
-                    <select id="array-size">
-                        <option value="20" selected>20</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                    <label for="array-pattern">Initial order</label>
-                    <select id="array-pattern">
-                        <option value="random">Random</option>
-                        <option value="reversed">Reversed</option>
-                        <option value="nearly-sorted">Nearly sorted</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Sleep Time(ms):</label>
-                    <input type="text" class="sleep-time-text" value="0">
-                </div>
-                <button id="start-btn">Start</button>
-                <button id="pause-btn" disabled>Pause</button>
-                <button id="step-btn" disabled>Step</button>
-                <button id="reset-btn">Reset</button>
-            </div>
-        </section>
+            <input
+              id="multi-delay"
+              type="range"
+              min="0"
+              max="300"
+              step="10"
+              class="sleep-time-text"
+              value="60"
+            />
+            <div class="speed-ends"><span>Fast</span><span>Slow</span></div>
+          </div>
+          <button id="start-btn" disabled>Start comparison</button>
+          <button id="pause-btn" disabled>Pause</button>
+          <button id="step-btn" disabled>Next step</button>
+          <button id="reset-btn">New array</button>
+          <p class="metric-note">
+            Comparisons count value checks. Array writes count changes to the
+            displayed array. Elapsed time includes animation delay.
+          </p>
+        </div>
+      </section>
     </section>
 
     <script src="../scripts/dataset.js"></script>
     <script src="../scripts/multi_draw.js" type="module"></script>
-</body>
-
+  </body>
 </html>

@@ -1,58 +1,284 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sort Visualizer</title>
-    <link rel="stylesheet" href="./styles/single.css">
-</head>
-<body>
-    <nav class="navbar">
-        <ul>
-            <li><a href="#">Single</a></li>
-            <li><a href="./pages/multi.html">Multiple</a></li>
-        </ul>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#101110" />
+    <title>Sort Lab — Study a sorting algorithm</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/single.css" />
+  </head>
+  <body>
+    <nav class="navbar" aria-label="Main navigation">
+      <a class="brand" href="./index.html" aria-label="Sort Lab home"
+        ><span class="brand-symbol" aria-hidden="true">S/</span
+        ><span>SORT LAB</span></a
+      >
+      <ul>
+        <li><a href="./index.html" aria-current="page">Study</a></li>
+        <li><a href="./pages/multi.html">Compare</a></li>
+      </ul>
     </nav>
-    <div class="btns-container">
-        <button type="button" class="algorithm-btn bubble-sort-btn">Bubble Sort</button>
-        <button type="button" class="algorithm-btn merge-sort-btn">Merge Sort</button>
-        <button type="button" class="algorithm-btn quick-sort-btn">Quick Sort</button>
-        <button type="button" class="algorithm-btn counting-sort-btn">Counting Sort</button>
-        <button type="button" class="algorithm-btn radix-sort-btn">Radix Sort</button>
-        <button type="button" class="algorithm-btn cocktail-sort-btn">Cocktail Sort</button>
-    </div>
-    <div class="data-controls">
-        <label for="array-size">Items</label>
-        <select id="array-size">
-            <option value="20" selected>20</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-        </select>
-        <label for="array-pattern">Initial order</label>
-        <select id="array-pattern">
-            <option value="random">Random</option>
-            <option value="reversed">Reversed</option>
-            <option value="nearly-sorted">Nearly sorted</option>
-        </select>
-    </div>
-    <label>Sleep Time(ms):</label>
-    <input type="text" class="sleep-time-text" value="0">
-    <output id="single-time" class="single-time">0 s</output>
-    <p id="single-status" class="algorithm-status">Ready</p>
-    <div class="visual-key" aria-label="Visualization colors">
-        <span class="key-active">Current</span>
-        <span class="key-reference">Reference</span>
-        <span class="key-range">Active range</span>
-        <span class="key-complete">Finished</span>
-    </div>
-    <canvas width="800" height="800" id="all-canvas"></canvas>
-    <div class="playback-controls">
-        <button type="button" class="pause-btn" disabled>Pause</button>
-        <button type="button" class="step-btn" disabled>Step</button>
-        <button type="button" class="reset-btn">Reset</button>
-    </div>
 
-    <script src="./scripts/main.js" type="module"></script>
+    <main class="app-shell">
+      <header class="page-heading">
+        <div>
+          <h1>See how all of these sorting algorithms work!</h1>
+          <p>
+            Pick an algorithm, press Start, and follow every decision in the
+            array.
+          </p>
+        </div>
+      </header>
+
+      <div class="study-layout">
+        <section class="algorithm-selector" aria-labelledby="algorithm-heading">
+          <div class="selector-heading">
+            <h2 id="algorithm-heading">Algorithms</h2>
+            <span>Choose one</span>
+          </div>
+          <div
+            class="btns-container"
+            role="group"
+            aria-label="Choose an algorithm"
+          >
+            <button
+              type="button"
+              class="algorithm-btn bubble-sort-btn"
+              data-algorithm="bubble"
+              aria-pressed="true"
+            >
+              <span class="algorithm-number">01</span
+              ><span class="algorithm-name"
+                >Bubble Sort<small>Adjacent swaps</small></span
+              >
+            </button>
+            <button
+              type="button"
+              class="algorithm-btn merge-sort-btn"
+              data-algorithm="merge"
+              aria-pressed="false"
+            >
+              <span class="algorithm-number">02</span
+              ><span class="algorithm-name"
+                >Merge Sort<small>Divide and combine</small></span
+              >
+            </button>
+            <button
+              type="button"
+              class="algorithm-btn quick-sort-btn"
+              data-algorithm="quick"
+              aria-pressed="false"
+            >
+              <span class="algorithm-number">03</span
+              ><span class="algorithm-name"
+                >Quick Sort<small>Pivot partitioning</small></span
+              >
+            </button>
+            <button
+              type="button"
+              class="algorithm-btn counting-sort-btn"
+              data-algorithm="counting"
+              aria-pressed="false"
+            >
+              <span class="algorithm-number">04</span
+              ><span class="algorithm-name"
+                >Counting Sort<small>Count occurrences</small></span
+              >
+            </button>
+            <button
+              type="button"
+              class="algorithm-btn radix-sort-btn"
+              data-algorithm="radix"
+              aria-pressed="false"
+            >
+              <span class="algorithm-number">05</span
+              ><span class="algorithm-name"
+                >Radix Sort<small>Digit by digit</small></span
+              >
+            </button>
+            <button
+              type="button"
+              class="algorithm-btn cocktail-sort-btn"
+              data-algorithm="cocktail"
+              aria-pressed="false"
+            >
+              <span class="algorithm-number">06</span
+              ><span class="algorithm-name"
+                >Cocktail Sort<small>Two-way passes</small></span
+              >
+            </button>
+          </div>
+          <p class="selector-note">
+            Each run starts with the same unsorted values until you generate a
+            new set.
+          </p>
+        </section>
+
+        <div class="study-content">
+          <section
+            class="workspace"
+            aria-label="Sorting visualization and explanation"
+          >
+            <div class="visual-panel">
+              <div class="panel-heading">
+                <div>
+                  <span class="panel-eyebrow">Array view</span>
+                  <h2 id="visual-title">Bubble Sort</h2>
+                </div>
+                <span class="run-state" id="run-state" data-state="ready"
+                  ><span class="state-dot"></span
+                  ><span class="run-state-text">Ready</span></span
+                >
+              </div>
+
+              <div class="control-panel" aria-label="Run settings">
+                <div class="control-field">
+                  <label for="array-size">Items</label
+                  ><select id="array-size">
+                    <option value="20" selected>20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                  </select>
+                </div>
+                <div class="control-field">
+                  <label for="array-pattern">Starting order</label
+                  ><select id="array-pattern">
+                    <option value="random">Random</option>
+                    <option value="reversed">Reversed</option>
+                    <option value="nearly-sorted">Nearly sorted</option>
+                  </select>
+                </div>
+                <div class="control-field speed-field">
+                  <div class="speed-heading">
+                    <label for="sleep-time">Step delay</label
+                    ><output id="delay-value" for="sleep-time">90 ms</output>
+                  </div>
+                  <input
+                    id="sleep-time"
+                    type="range"
+                    min="0"
+                    max="300"
+                    step="10"
+                    class="sleep-time-text"
+                    value="90"
+                  />
+                  <div class="speed-ends">
+                    <span>Fast</span><span>Slow</span>
+                  </div>
+                </div>
+                <button type="button" id="start-btn" class="start-btn">
+                  <span aria-hidden="true">▶</span
+                  ><span class="start-label">Start sorting</span>
+                </button>
+              </div>
+
+              <div class="canvas-frame">
+                <canvas
+                  width="1000"
+                  height="420"
+                  id="all-canvas"
+                  aria-label="Bars representing the values in the current array"
+                ></canvas>
+                <div class="canvas-scale" aria-hidden="true">
+                  <span>00</span><span>Value / bar height</span
+                  ><span id="scale-max">20</span>
+                </div>
+              </div>
+
+              <div class="stage-footer">
+                <div class="visual-key" aria-label="Bar color key">
+                  <span class="key-active">Current</span
+                  ><span class="key-reference">Reference</span
+                  ><span class="key-range">Working range</span
+                  ><span class="key-complete">Sorted</span>
+                </div>
+                <div class="playback-controls">
+                  <button type="button" class="pause-btn" disabled>Pause</button
+                  ><button type="button" class="step-btn" disabled>
+                    Next step</button
+                  ><button type="button" class="reset-btn">New array</button>
+                </div>
+              </div>
+
+              <div class="metrics" aria-label="Run metrics">
+                <div>
+                  <span>Comparisons</span
+                  ><strong id="single-comparisons">0</strong>
+                </div>
+                <div>
+                  <span>Array writes</span><strong id="single-writes">0</strong>
+                </div>
+                <div>
+                  <span>Elapsed</span
+                  ><output id="single-time" class="single-time">0 s</output>
+                </div>
+              </div>
+            </div>
+
+            <aside class="lesson-panel" aria-labelledby="lesson-heading">
+              <div class="lesson-header">
+                <span>Study notes / 01</span>
+                <h2 id="lesson-heading">What to notice</h2>
+              </div>
+              <section class="lesson-section concept-section">
+                <h3>The idea</h3>
+                <p id="lesson-concept">
+                  Compare neighboring values and move the larger one to the
+                  right. Each pass fixes one more value at the end.
+                </p>
+                <p id="lesson-complexity" class="complexity">
+                  Time complexity <strong>O(n²)</strong>
+                </p>
+              </section>
+              <section
+                class="lesson-section current-step-section"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                <div class="step-label">
+                  <h3>Right now</h3>
+                  <span id="step-phase">Ready to run</span>
+                </div>
+                <p id="single-status" class="algorithm-status">
+                  Press Start to see the first decision.
+                </p>
+                <p id="step-explanation" class="step-explanation">
+                  Each move will be explained here as it happens.
+                </p>
+              </section>
+              <section class="lesson-section variables-section">
+                <h3>Working values</h3>
+                <dl id="lesson-variables">
+                  <div>
+                    <dt>Items</dt>
+                    <dd>20</dd>
+                  </div>
+                  <div>
+                    <dt>Current position</dt>
+                    <dd>—</dd>
+                  </div>
+                  <div>
+                    <dt>Reference position</dt>
+                    <dd>—</dd>
+                  </div>
+                </dl>
+              </section>
+              <p class="lesson-footnote">
+                Comparisons count value checks. Array writes count changes to
+                the displayed array. Elapsed time includes animation delay.
+              </p>
+            </aside>
+          </section>
+        </div>
+      </div>
+    </main>
     <script src="./scripts/dataset.js"></script>
-</body>
+    <script src="./scripts/main.js" type="module"></script>
+  </body>
 </html>

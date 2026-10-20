@@ -1,125 +1,573 @@
-@import "./general.scss";
+:root {
+  color-scheme: dark;
+  --ground: #101110;
+  --surface: #1a1c19;
+  --raised: #242722;
+  --line: #373b35;
+  --ink: #e8eeec;
+  --muted: #a6aaa0;
+  --signal: #76cfdd;
+  --reference: #e2bc74;
+  --range: #83979d;
+  --complete: #9db89a;
+  --paper: #e1e6dc;
+  --paper-ink: #1c2520;
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+}
 
+* {
+  box-sizing: border-box;
+}
 body {
-    height: 100vh;
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+}
+button,
+input,
+select {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+}
 
-    .parts-container {
-        display: flex;
-        align-items: stretch;
-        justify-content: space-between;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        width: 100vw;
-        margin-top: 3rem;
+.navbar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  height: 66px;
+  padding: 0 max(32px, calc((100vw - 1560px) / 2));
+  border-bottom: 1px solid var(--line);
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  color: var(--ink);
+  text-decoration: none;
+  font:
+    600 15px "IBM Plex Mono",
+    monospace;
+  letter-spacing: -0.035em;
+}
+.brand-symbol {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  background: var(--ink);
+  color: var(--ground);
+  font-size: 14px;
+}
+.navbar ul {
+  display: flex;
+  justify-content: flex-end;
+  gap: 30px;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.navbar li {
+  display: flex;
+  align-items: center;
+}
+.navbar a:not(.brand) {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 13px;
+}
+.navbar a:not(.brand):hover,
+.navbar a[aria-current] {
+  color: var(--ink);
+}
+.navbar a[aria-current] {
+  font-weight: 600;
+}
 
-        .parts {
-            width: 30%;
-        }
+.comparison-intro,
+.parts-container {
+  max-width: 1560px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 32px;
+  padding-left: 32px;
+}
+.comparison-intro {
+  margin-top: 26px;
+}
+.chapter-label {
+  color: var(--signal);
+  font:
+    12px "IBM Plex Sans",
+    sans-serif;
+}
+.comparison-intro h1 {
+  margin: 9px 0 7px;
+  font-size: clamp(26px, 2.5vw, 32px);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 1.1;
+}
+.comparison-intro p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+.parts-container {
+  display: grid;
+  grid-template-columns: 205px minmax(0, 1fr) 230px;
+  align-items: start;
+  gap: 18px;
+  margin-top: 24px;
+  margin-bottom: 50px;
+}
 
-        .checkboxes-container {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+.checkboxes-container {
+  position: sticky;
+  top: 18px;
+  border-top: 1px solid var(--line);
+}
+.checkboxes-container h2 {
+  margin: 17px 0 2px;
+  font-size: 15px;
+  font-weight: 600;
+}
+#selected-count {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font:
+    11px "IBM Plex Mono",
+    monospace;
+}
+.checkboxes-container .outer > div {
+  display: flex;
+  align-items: center;
+  min-height: 43px;
+  border-top: 1px solid var(--line);
+}
+.checkboxes-container .outer > div:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.checkboxes-container input {
+  width: 16px;
+  height: 16px;
+  margin: 0 9px 0 3px;
+  accent-color: var(--signal);
+}
+.checkboxes-container label {
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 13px;
+}
 
-            label {
-                color: white;
-                user-select: none;
-            }
-        }
+.canvases-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+  align-items: start;
+  gap: 12px;
+  min-width: 0;
+}
+.visual-key {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  min-height: 28px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 11px;
+}
+.visual-key span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.visual-key span::before {
+  width: 8px;
+  height: 8px;
+  content: "";
+}
+.key-active::before {
+  background: var(--signal);
+}
+.key-reference::before {
+  background: var(--reference);
+}
+.key-range::before {
+  background: var(--range);
+}
+.key-complete::before {
+  background: var(--complete);
+}
+.empty-state {
+  grid-column: 1 / -1;
+  padding: 32px 40px;
+  background: var(--surface);
+}
+.empty-state[hidden] {
+  display: none;
+}
+.empty-content {
+  max-width: 580px;
+}
+.empty-content > span {
+  color: var(--signal);
+  font:
+    12px "IBM Plex Sans",
+    sans-serif;
+}
+.empty-content h2 {
+  margin: 14px 0 11px;
+  font-size: 25px;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+.empty-content p {
+  max-width: 480px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.empty-content ul {
+  max-width: 530px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.empty-content li {
+  display: grid;
+  grid-template-columns: 100px minmax(0, 1fr);
+  gap: 12px;
+  padding: 9px 0;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.empty-content li strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.empty-content li span {
+  color: var(--muted);
+}
+.empty-content button {
+  margin-top: 23px;
+  min-height: 36px;
+  padding: 0 16px;
+  border: 0;
+  background: var(--ink);
+  color: var(--ground);
+  font-size: 13px;
+  font-weight: 600;
+}
+.empty-content button:hover {
+  background: #d6ded2;
+}
 
-        .canvases-container {
-            flex-grow: 3;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+.algorithm-card {
+  min-width: 0;
+  padding: 16px;
+  background: var(--surface);
+}
+.card-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 10px;
+  min-height: 43px;
+}
+.card-heading h2 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+.card-time {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  white-space: nowrap;
+}
+.card-time span {
+  color: var(--muted);
+  font-size: 11px;
+}
+.card-time output {
+  color: var(--ink);
+  font:
+    12px "IBM Plex Mono",
+    monospace;
+  font-variant-numeric: tabular-nums;
+}
+.algorithm-card canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #111310;
+}
+.algorithm-status {
+  min-height: 37px;
+  margin: 10px 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.card-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 0;
+  padding-top: 11px;
+  border-top: 1px solid var(--line);
+}
+.card-metrics dt {
+  color: var(--muted);
+  font-size: 11px;
+}
+.card-metrics dd {
+  margin: 3px 0 0;
+  color: var(--ink);
+  font:
+    500 18px "IBM Plex Mono",
+    monospace;
+  font-variant-numeric: tabular-nums;
+}
 
-            .visual-key {
-                width: 100%;
-                flex-basis: 100%;
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 0.6rem;
-                color: white;
-                font-size: 0.75rem;
+.setting-container {
+  position: sticky;
+  top: 18px;
+  padding: 20px;
+  background: var(--paper);
+  color: var(--paper-ink);
+}
+.setting-container h2 {
+  margin: 0 0 18px;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+.setting-outer {
+  display: flex;
+  flex-direction: column;
+}
+.setting-container label {
+  display: block;
+  margin-bottom: 7px;
+  color: #4f5e52;
+  font-size: 12px;
+}
+.setting-container select {
+  width: 100%;
+  height: 36px;
+  padding: 0 9px;
+  border: 1px solid #879487;
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--paper-ink);
+  font-size: 13px;
+}
+.setting-container .data-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.setting-container .data-controls select {
+  margin-bottom: 14px;
+}
+.speed-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+.speed-heading output {
+  font:
+    12px "IBM Plex Mono",
+    monospace;
+  white-space: nowrap;
+}
+.setting-container input[type="range"] {
+  display: block;
+  width: 100%;
+  height: 34px;
+  margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+}
+.setting-container input[type="range"]::-webkit-slider-runnable-track {
+  height: 2px;
+  background: #718174;
+}
+.setting-container input[type="range"]::-moz-range-track {
+  height: 2px;
+  background: #718174;
+}
+.setting-container input[type="range"]::-webkit-slider-thumb {
+  width: 14px;
+  height: 14px;
+  margin-top: -6px;
+  border: 2px solid var(--paper);
+  border-radius: 50%;
+  background: var(--paper-ink);
+  appearance: none;
+  -webkit-appearance: none;
+}
+.setting-container input[type="range"]::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--paper);
+  border-radius: 50%;
+  background: var(--paper-ink);
+  box-shadow: 0 0 0 1px var(--paper-ink);
+}
+.speed-ends {
+  display: flex;
+  justify-content: space-between;
+  color: #4f5e52;
+  font:
+    11px "IBM Plex Sans",
+    sans-serif;
+}
+.setting-container button {
+  width: 100%;
+  min-height: 36px;
+  margin-top: 8px;
+  padding: 0 8px;
+  border: 1px solid #879487;
+  border-radius: 0;
+  background: transparent;
+  color: var(--paper-ink);
+  font-size: 13px;
+}
+.setting-container button:not(:disabled):hover {
+  background: #cbd3c8;
+}
+.setting-container #start-btn {
+  margin-top: 22px;
+  border-color: var(--paper-ink);
+  background: var(--paper-ink);
+  color: var(--paper);
+  font-weight: 600;
+}
+.setting-container #start-btn:not(:disabled):hover {
+  background: #344038;
+}
+.metric-note {
+  margin: 17px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid #a9b2a5;
+  color: #586559;
+  font-size: 11px;
+  line-height: 1.5;
+}
 
-                span::before {
-                    content: "";
-                    display: inline-block;
-                    width: 0.6rem;
-                    height: 0.6rem;
-                    margin-right: 0.25rem;
-                }
-
-                .key-active::before { background: #ff6673; }
-                .key-reference::before { background: #ffd166; }
-                .key-range::before { background: #83bfff; }
-                .key-complete::before { background: #72d6a1; }
-            }
-
-            div {
-                margin: 0.5rem;
-                width: 200px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-
-                label {
-                    color: white;
-                }
-
-                canvas {
-                    width: 100%;
-                    border: 1px white solid;
-                }
-
-                .algorithm-status {
-                    color: white;
-                    min-height: 2.5rem;
-                    font-size: 0.75rem;
-                    text-align: center;
-                }
-            }
-        }
-
-        .setting-container {
-            flex-grow: 1;
-            display: flex;
-            justify-content: center;
-
-            .setting-outer {
-                display: flex;
-                flex-direction: column;
-            }
-
-            .data-controls {
-                display: flex;
-                flex-direction: column;
-                gap: 0.35rem;
-                margin-bottom: 1rem;
-
-                select {
-                    height: 2rem;
-                }
-            }
-
-            div {
-                label {
-                    color: white;
-                }
-
-                input {
-                    width: 6rem;
-                    text-align: center;
-                }
-            }
-
-            button {
-                width: 6rem;
-                height: 2rem;
-                margin-top: 0.5rem;
-            }
-        }
-    }
+@media (max-width: 1050px) {
+  .parts-container {
+    grid-template-columns: 170px minmax(0, 1fr) 200px;
+    gap: 12px;
+  }
+  .empty-state {
+    padding: 26px;
+  }
+}
+@media (max-width: 800px) {
+  .parts-container {
+    grid-template-columns: 1fr;
+  }
+  .checkboxes-container,
+  .setting-container {
+    position: static;
+  }
+  .checkboxes-container .outer {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 12px;
+  }
+  .checkboxes-container h2,
+  #selected-count {
+    grid-column: 1 / -1;
+  }
+  .setting-container {
+    grid-row: 2;
+  }
+  .canvases-container {
+    grid-row: 3;
+  }
+  .setting-outer {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 12px;
+  }
+  .setting-container h2,
+  .setting-container .data-controls,
+  .metric-note {
+    grid-column: 1 / -1;
+  }
+  .setting-container .data-controls {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 12px;
+  }
+  .setting-container .data-controls label {
+    grid-row: 1;
+  }
+  .setting-container .data-controls select {
+    grid-row: 2;
+  }
+  .setting-container #start-btn {
+    margin-top: 8px;
+  }
+}
+@media (max-width: 720px) {
+  .navbar {
+    grid-template-columns: 1fr auto;
+    height: 56px;
+    padding: 0 16px;
+  }
+  .navbar ul {
+    gap: 18px;
+  }
+  .comparison-intro,
+  .parts-container {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+  .comparison-intro {
+    margin-top: 25px;
+  }
+  .comparison-intro h1 {
+    font-size: 29px;
+  }
+  .parts-container {
+    margin-top: 25px;
+  }
+  .empty-state {
+    padding: 23px;
+  }
+  .empty-content h2 {
+    font-size: 21px;
+  }
+  .empty-content li {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
 }

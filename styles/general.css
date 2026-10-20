@@ -1,5 +1,9 @@
-body, button, label, input {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
+body,
+button,
+label,
+input {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
   font-weight: 400;
 }
 
@@ -36,4 +40,4 @@ body .navbar ul li a {
   cursor: pointer;
   color: white;
   border: none;
-}/*# sourceMappingURL=general.css.map */
+} /*# sourceMappingURL=general.css.map */
