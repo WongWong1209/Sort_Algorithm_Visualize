@@ -1,5 +1,5 @@
-# Sort Algorithm Visualize Website
-A website designed for visualizing sorting algorithms to make them easier to compare and understand.
+# Arraylume
+A visual guide to sorting algorithms that makes each decision easier to see, compare, and understand.
 
 [Website Link](https://wongwong1209.github.io/Sort_Algorithm_Visualize/)
 
