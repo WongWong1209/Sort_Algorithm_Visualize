@@ -22,15 +22,19 @@ async function partition(data, low, high, sleepTime) {
 }
 
 async function quick_sort(data, low, high, sleepTime) {
+    const isRoot = low === 0 && high === data.arr.length - 1;
+    if (isRoot && data.start_time === undefined) data.start_time = new Date().getTime();
     if (low < high) {
         let pivot = await partition(data, low, high, sleepTime);
         await quick_sort(data, low, pivot - 1, sleepTime);
         await quick_sort(data, pivot + 1, high, sleepTime);
     }
-    data.cur = -1;
-    data.end_time = new Date().getTime();
-    data.setTimeText();
-    data.draw();
+    if (isRoot) {
+        data.cur = -1;
+        data.end_time = new Date().getTime();
+        data.setTimeText();
+        data.draw();
+    }
 }
 
 function sleep(ms) {

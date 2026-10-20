@@ -25,7 +25,7 @@ class Dataset {
 
     setTimeText() {
         let time = (this.end_time - this.start_time) / 1000;
-        let time_text = document.querySelector(`#${this.type}-time`);
-        time_text.innerText = `${time} s`;
+        let time_text = document.querySelector(`#${this.type}-time`) ?? document.querySelector("#single-time");
+        if (time_text) time_text.innerText = `${time} s`;
     }
 }

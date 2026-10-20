@@ -28,10 +28,15 @@ function resetArr() {
 }
 
 const reset_btn = document.querySelector(".reset-btn");
+const single_time = document.querySelector("#single-time");
+document.querySelector(".btns-container").addEventListener("click", () => {
+    single_time.textContent = "0 s";
+});
 reset_btn.addEventListener("click", () => {
     resetArr();
     data.arr = default_arr;
     data.draw();
+    single_time.textContent = "0 s";
 });
 
 const bubble_sort_btn = document.querySelector(".bubble-sort-btn");
