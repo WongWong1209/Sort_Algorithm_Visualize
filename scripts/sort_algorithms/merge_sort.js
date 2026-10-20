@@ -4,6 +4,10 @@ async function merge(data, start, mid, end, sleepTime) {
     let left = data.arr.slice(start, mid + 1);
     let right = data.arr.slice(mid + 1, end + 1);
     let i = 0, j = 0, k = start;
+    const showWrite = () => data.showStep(
+        `Merge ${start + 1}–${mid + 1} with ${mid + 2}–${end + 1} · write ${data.arr[k]} at ${k + 1}`,
+        {active: [k], reference: [mid], range: [start, end]}
+    );
     
     while (i < left.length && j < right.length) {
         if (left[i] <= right[j]) {
@@ -13,16 +17,14 @@ async function merge(data, start, mid, end, sleepTime) {
             data.arr[k] = right[j];
             j++;
         }
-        data.cur = k;
-        data.draw();
+        showWrite();
         if (!(await data.wait(sleepTime))) return;
         k++;
     }
     
     while (i < left.length) {
         data.arr[k] = left[i];
-        data.cur = k;
-        data.draw();
+        showWrite();
         if (!(await data.wait(sleepTime))) return;
         i++;
         k++;
@@ -30,8 +32,7 @@ async function merge(data, start, mid, end, sleepTime) {
     
     while (j < right.length) {
         data.arr[k] = right[j];
-        data.cur = k;
-        data.draw();
+        showWrite();
         if (!(await data.wait(sleepTime))) return;
         j++;
         k++;

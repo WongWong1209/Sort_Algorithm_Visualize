@@ -34,6 +34,30 @@ body {
             flex-wrap: wrap;
             justify-content: center;
 
+            .visual-key {
+                width: 100%;
+                flex-basis: 100%;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.6rem;
+                color: white;
+                font-size: 0.75rem;
+
+                span::before {
+                    content: "";
+                    display: inline-block;
+                    width: 0.6rem;
+                    height: 0.6rem;
+                    margin-right: 0.25rem;
+                }
+
+                .key-active::before { background: #ff6673; }
+                .key-reference::before { background: #ffd166; }
+                .key-range::before { background: #83bfff; }
+                .key-complete::before { background: #72d6a1; }
+            }
+
             div {
                 margin: 0.5rem;
                 width: 200px;
@@ -48,6 +72,13 @@ body {
                 canvas {
                     width: 100%;
                     border: 1px white solid;
+                }
+
+                .algorithm-status {
+                    color: white;
+                    min-height: 2.5rem;
+                    font-size: 0.75rem;
+                    text-align: center;
                 }
             }
         }

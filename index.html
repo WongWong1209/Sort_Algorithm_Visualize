@@ -38,6 +38,13 @@
     <label>Sleep Time(ms):</label>
     <input type="text" class="sleep-time-text" value="0">
     <output id="single-time" class="single-time">0 s</output>
+    <p id="single-status" class="algorithm-status">Ready</p>
+    <div class="visual-key" aria-label="Visualization colors">
+        <span class="key-active">Current</span>
+        <span class="key-reference">Reference</span>
+        <span class="key-range">Active range</span>
+        <span class="key-complete">Finished</span>
+    </div>
     <canvas width="800" height="800" id="all-canvas"></canvas>
     <div class="playback-controls">
         <button type="button" class="pause-btn" disabled>Pause</button>

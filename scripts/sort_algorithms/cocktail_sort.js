@@ -8,32 +8,42 @@ async function cocktail_sort(data, sleepTime) {
     
     while (swapped) {
         swapped = false;
+        let complete = Array.from({length: data.arr.length}, (_, index) => index)
+            .filter(index => index < start || index > end);
         
         // Forward pass (left to right)
         for (let i = start; i < end; i++) {
-            if (data.arr[i] > data.arr[i + 1]) {
+            const left = data.arr[i];
+            const right = data.arr[i + 1];
+            if (left > right) {
                 [data.arr[i], data.arr[i + 1]] = [data.arr[i + 1], data.arr[i]];
                 swapped = true;
-                data.cur = i + 1;
-                data.draw();
-                if (!(await data.wait(sleepTime))) return;
             }
+            data.showStep(`Right → ${left} ${left > right ? ">" : "≤"} ${right} · ${left > right ? "swap" : "keep"}`, {
+                active: [i, i + 1], complete
+            });
+            if (!(await data.wait(sleepTime))) return;
         }
         
         if (!swapped) break;
         
         swapped = false;
         end--;
+        complete = Array.from({length: data.arr.length}, (_, index) => index)
+            .filter(index => index < start || index > end);
         
         // Backward pass (right to left)
         for (let i = end - 1; i >= start; i--) {
-            if (data.arr[i] > data.arr[i + 1]) {
+            const left = data.arr[i];
+            const right = data.arr[i + 1];
+            if (left > right) {
                 [data.arr[i], data.arr[i + 1]] = [data.arr[i + 1], data.arr[i]];
                 swapped = true;
-                data.cur = i;
-                data.draw();
-                if (!(await data.wait(sleepTime))) return;
             }
+            data.showStep(`← Left ${left} ${left > right ? ">" : "≤"} ${right} · ${left > right ? "swap" : "keep"}`, {
+                active: [i, i + 1], complete
+            });
+            if (!(await data.wait(sleepTime))) return;
         }
         
         start++;

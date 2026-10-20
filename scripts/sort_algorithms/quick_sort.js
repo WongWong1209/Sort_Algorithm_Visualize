@@ -5,18 +5,26 @@ async function partition(data, low, high, sleepTime) {
     let i = low - 1;
 
     for (let j = low; j < high; j++) {
-        if (data.arr[j] < pivot) {
+        const value = data.arr[j];
+        const moved = value < pivot;
+        if (moved) {
             i++;
             [data.arr[i], data.arr[j]] = [data.arr[j], data.arr[i]];
-            data.cur = i;
-            data.draw();
-            if (!(await data.wait(sleepTime))) return;
         }
+        data.showStep(`${value} ${moved ? "<" : "≥"} pivot ${pivot} · ${moved ? "move left" : "keep right"}`, {
+            active: moved ? [i, j] : [j],
+            reference: [high],
+            range: [low, high],
+            complete: [...data.fixedPositions]
+        });
+        if (!(await data.wait(sleepTime))) return;
     }
 
     [data.arr[i + 1], data.arr[high]] = [data.arr[high], data.arr[i + 1]];
-    data.cur = i + 1;
-    data.draw();
+    data.fixedPositions.add(i + 1);
+    data.showStep(`Pivot ${pivot} fixed at position ${i + 2}`, {
+        range: [low, high], complete: [...data.fixedPositions]
+    });
     if (!(await data.wait(sleepTime))) return;
     return i + 1;
 }
@@ -24,7 +32,10 @@ async function partition(data, low, high, sleepTime) {
 async function quick_sort(data, low, high, sleepTime) {
     if (data.cancelled) return;
     const isRoot = low === 0 && high === data.arr.length - 1;
-    if (isRoot && data.start_time === undefined) data.start_time = new Date().getTime();
+    if (isRoot) {
+        if (data.start_time === undefined) data.start_time = new Date().getTime();
+        data.fixedPositions = new Set();
+    }
     if (low < high) {
         let pivot = await partition(data, low, high, sleepTime);
         if (data.cancelled) return;

@@ -172,7 +172,7 @@ function createElement(id) {
     const new_canvas = document.createElement("div");
 
     new_canvas.id = `${id}-div`;
-    new_canvas.innerHTML = `<label>${id} sort</label><label id="${id}-time" class="timer">0 s</label><canvas id="${id}-canvas" width="800" height="800"></canvas>`;
+    new_canvas.innerHTML = `<label>${id} sort</label><label id="${id}-time" class="timer">0 s</label><canvas id="${id}-canvas" width="800" height="800"></canvas><p id="${id}-status" class="algorithm-status">Ready</p>`;
 
     canvases_container.appendChild(new_canvas);
 

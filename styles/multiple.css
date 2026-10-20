@@ -71,6 +71,27 @@ body .parts-container .canvases-container {
   flex-wrap: wrap;
   justify-content: center;
 }
+body .parts-container .canvases-container .visual-key {
+  width: 100%;
+  flex-basis: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  color: white;
+  font-size: 0.75rem;
+}
+body .parts-container .canvases-container .visual-key span::before {
+  content: "";
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  margin-right: 0.25rem;
+}
+body .parts-container .canvases-container .visual-key .key-active::before { background: #ff6673; }
+body .parts-container .canvases-container .visual-key .key-reference::before { background: #ffd166; }
+body .parts-container .canvases-container .visual-key .key-range::before { background: #83bfff; }
+body .parts-container .canvases-container .visual-key .key-complete::before { background: #72d6a1; }
 body .parts-container .canvases-container div {
   margin: 0.5rem;
   width: 200px;
@@ -84,6 +105,12 @@ body .parts-container .canvases-container div label {
 body .parts-container .canvases-container div canvas {
   width: 100%;
   border: 1px white solid;
+}
+body .parts-container .canvases-container div .algorithm-status {
+  color: white;
+  min-height: 2.5rem;
+  font-size: 0.75rem;
+  text-align: center;
 }
 body .parts-container .setting-container {
   flex-grow: 1;

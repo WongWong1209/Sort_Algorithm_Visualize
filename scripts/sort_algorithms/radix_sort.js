@@ -3,10 +3,17 @@ export {radix_sort};
 async function countingSortForRadix(data, exp, sleepTime) {
     let output = new Array(data.arr.length).fill(0);
     let count = new Array(10).fill(0);
+    const place = exp === 1 ? "ones" : exp === 10 ? "tens" : "hundreds";
 
     for (let i = 0; i < data.arr.length; i++) {
         let digit = Math.floor(data.arr[i] / exp) % 10;
         count[digit]++;
+        const sameDigit = data.arr.slice(0, i).flatMap((value, index) =>
+            Math.floor(value / exp) % 10 === digit ? [index] : []);
+        data.showStep(`${place} digit of ${data.arr[i]} is ${digit} · bucket ${digit}: ${count[digit]}`, {
+            active: [i], reference: sameDigit
+        });
+        if (!(await data.wait(sleepTime))) return;
     }
 
     for (let i = 1; i < 10; i++) {
@@ -21,8 +28,7 @@ async function countingSortForRadix(data, exp, sleepTime) {
 
     for (let i = 0; i < data.arr.length; i++) {
         data.arr[i] = output[i];
-        data.cur = i;
-        data.draw();
+        data.showStep(`${place} pass · write ${output[i]} at position ${i + 1}`, {active: [i]});
         if (!(await data.wait(sleepTime))) return;
     }
 }

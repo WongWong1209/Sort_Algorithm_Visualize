@@ -11,6 +11,7 @@ class Dataset {
         this.pauseStartedAt = null;
         this.pausedDuration = 0;
         this.pendingWaits = new Set();
+        this.visual = {message: "Ready", active: [], reference: [], range: null, complete: []};
     }
 
     cancel() {
@@ -62,6 +63,11 @@ class Dataset {
         if (waiter) waiter.finish(true);
     }
 
+    showStep(message, {active = [], reference = [], range = null, complete = []} = {}) {
+        this.visual = {message, active, reference, range, complete};
+        this.draw();
+    }
+
     draw() {
         if (this.cancelled) return;
         const canvas = document.querySelector(`#${this.type}-canvas`);
@@ -73,11 +79,16 @@ class Dataset {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         for(let i = 0; i < this.arr.length; i++) {
-            if(i == this.cur) ctx.fillStyle = "red";
-            else if(i + 1 == this.arr[i]) ctx.fillStyle = "lightgreen";
+            if (this.visual.complete.includes(i)) ctx.fillStyle = "#72d6a1";
+            else if (this.visual.active.includes(i)) ctx.fillStyle = "#ff6673";
+            else if (this.visual.reference.includes(i)) ctx.fillStyle = "#ffd166";
+            else if (this.visual.range && i >= this.visual.range[0] && i <= this.visual.range[1]) ctx.fillStyle = "#83bfff";
             else ctx.fillStyle = "white";
             ctx.fillRect(i * width, canvas.height - this.arr[i] * height, width, this.arr[i] * height);
         }
+
+        const status = document.querySelector(`#${this.type}-status`) ?? document.querySelector("#single-status");
+        if (status) status.textContent = this.visual.message;
     }
 
     setTimeText() {
@@ -86,6 +97,13 @@ class Dataset {
         let time = Math.max(0, this.end_time - this.start_time - pausedTime) / 1000;
         let time_text = document.querySelector(`#${this.type}-time`) ?? document.querySelector("#single-time");
         if (time_text) time_text.innerText = `${time} s`;
+        this.visual = {
+            message: "Sorted",
+            active: [],
+            reference: [],
+            range: null,
+            complete: Array.from({length: this.arr.length}, (_, index) => index)
+        };
         this.finished = true;
         if (this.onComplete) this.onComplete();
     }

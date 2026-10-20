@@ -9,11 +9,18 @@ async function counting_sort(data, sleepTime) {
     let output = new Array(data.arr.length);
 
     for (let i = 0; i < data.arr.length; i++) {
-        count[data.arr[i] - min]++;
+        const value = data.arr[i];
+        count[value - min]++;
+        data.showStep(`Count ${value} · seen ${count[value - min]}`, {active: [i]});
+        if (!(await data.wait(sleepTime))) return;
     }
 
     for (let i = 1; i < count.length; i++) {
         count[i] += count[i - 1];
+        const threshold = min + i;
+        const within = data.arr.flatMap((value, index) => value <= threshold ? [index] : []);
+        data.showStep(`Prefix count ≤ ${threshold}: ${count[i]}`, {reference: within});
+        if (!(await data.wait(sleepTime))) return;
     }
 
     for (let i = data.arr.length - 1; i >= 0; i--) {
@@ -23,8 +30,9 @@ async function counting_sort(data, sleepTime) {
 
     for (let i = 0; i < data.arr.length; i++) {
         data.arr[i] = output[i];
-        data.cur = i;
-        data.draw();
+        data.showStep(`Write ${output[i]} at position ${i + 1}`, {
+            active: [i], complete: Array.from({length: i}, (_, index) => index)
+        });
         if (!(await data.wait(sleepTime))) return;
     }
 
