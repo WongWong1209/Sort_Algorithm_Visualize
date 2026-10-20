@@ -25,7 +25,11 @@
     <input type="text" class="sleep-time-text" value="0">
     <output id="single-time" class="single-time">0 s</output>
     <canvas width="800" height="800" id="all-canvas"></canvas>
-    <button type="button" class="reset-btn">reset</button>
+    <div class="playback-controls">
+        <button type="button" class="pause-btn" disabled>Pause</button>
+        <button type="button" class="step-btn" disabled>Step</button>
+        <button type="button" class="reset-btn">Reset</button>
+    </div>
 
     <script src="./scripts/main.js" type="module"></script>
     <script src="./scripts/dataset.js"></script>

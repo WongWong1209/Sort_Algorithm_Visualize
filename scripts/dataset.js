@@ -6,26 +6,60 @@ class Dataset {
         this.start_time;
         this.end_time;
         this.cancelled = false;
+        this.paused = false;
+        this.finished = false;
+        this.pauseStartedAt = null;
+        this.pausedDuration = 0;
         this.pendingWaits = new Set();
     }
 
     cancel() {
         this.cancelled = true;
-        for (const finish of this.pendingWaits) finish(false);
+        for (const waiter of [...this.pendingWaits]) waiter.finish(false);
     }
 
     wait(ms) {
         if (this.cancelled) return Promise.resolve(false);
         return new Promise(resolve => {
-            let timer;
-            const finish = active => {
-                clearTimeout(timer);
-                this.pendingWaits.delete(finish);
-                resolve(active);
+            const waiter = {
+                ready: false,
+                timer: null,
+                finish: active => {
+                    if (!this.pendingWaits.has(waiter)) return;
+                    clearTimeout(waiter.timer);
+                    this.pendingWaits.delete(waiter);
+                    resolve(active);
+                }
             };
-            this.pendingWaits.add(finish);
-            timer = setTimeout(() => finish(!this.cancelled), ms);
+            this.pendingWaits.add(waiter);
+            waiter.timer = setTimeout(() => {
+                waiter.ready = true;
+                if (!this.paused) waiter.finish(!this.cancelled);
+            }, ms);
         });
+    }
+
+    pause() {
+        if (this.cancelled || this.finished || this.paused) return;
+        this.paused = true;
+        this.pauseStartedAt = Date.now();
+    }
+
+    resume() {
+        if (this.cancelled || this.finished || !this.paused) return;
+        this.pausedDuration += Date.now() - this.pauseStartedAt;
+        this.pauseStartedAt = null;
+        this.paused = false;
+        for (const waiter of [...this.pendingWaits]) {
+            if (waiter.ready) waiter.finish(true);
+        }
+    }
+
+    step() {
+        if (this.cancelled || this.finished) return;
+        this.pause();
+        const waiter = this.pendingWaits.values().next().value;
+        if (waiter) waiter.finish(true);
     }
 
     draw() {
@@ -47,8 +81,11 @@ class Dataset {
 
     setTimeText() {
         if (this.cancelled) return;
-        let time = (this.end_time - this.start_time) / 1000;
+        const pausedTime = this.pausedDuration + (this.paused ? this.end_time - this.pauseStartedAt : 0);
+        let time = Math.max(0, this.end_time - this.start_time - pausedTime) / 1000;
         let time_text = document.querySelector(`#${this.type}-time`) ?? document.querySelector("#single-time");
         if (time_text) time_text.innerText = `${time} s`;
+        this.finished = true;
+        if (this.onComplete) this.onComplete();
     }
 }

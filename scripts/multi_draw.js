@@ -39,7 +39,34 @@ function rebuildSelected() {
         document.querySelector(`#${next.type}-time`).textContent = "0 s";
         return next;
     });
+    updatePlaybackControls();
 }
+
+const pause_btn = document.querySelector("#pause-btn");
+const step_btn = document.querySelector("#step-btn");
+
+function activeDatasets() {
+    return data_arr.filter(d => d.playbackStarted && !d.cancelled && !d.finished);
+}
+
+function updatePlaybackControls() {
+    const active = activeDatasets();
+    pause_btn.disabled = active.length === 0;
+    step_btn.disabled = active.length === 0;
+    pause_btn.textContent = active.length > 0 && active.every(d => d.paused) ? "Play" : "Pause";
+}
+
+pause_btn.addEventListener("click", () => {
+    const active = activeDatasets();
+    if (active.every(d => d.paused)) active.forEach(d => d.resume());
+    else active.forEach(d => d.pause());
+    updatePlaybackControls();
+});
+
+step_btn.addEventListener("click", () => {
+    activeDatasets().forEach(d => d.step());
+    updatePlaybackControls();
+});
 
 const sleep_time_text = document.querySelector(".sleep-time-text");
 sleep_time_text.value = sleepTime;
@@ -51,6 +78,8 @@ const start_btn = document.querySelector("#start-btn");
 start_btn.addEventListener("click", () => {
     rebuildSelected();
     data_arr.forEach(d => {
+        d.playbackStarted = true;
+        d.onComplete = updatePlaybackControls;
         switch (d.type) {
             case "bubble":
                 bubble_sort(d, sleepTime);
@@ -73,6 +102,7 @@ start_btn.addEventListener("click", () => {
                 break;
         }
     });
+    updatePlaybackControls();
 });
 
 Array.prototype.removeType = function (type) {
@@ -111,6 +141,7 @@ all_check_checkbox.addEventListener("change", e => {
             }
         }
     });
+    updatePlaybackControls();
 });
 
 const sort_checkboxes = document.querySelectorAll(".sort-checkboxes");
@@ -128,6 +159,7 @@ sort_checkboxes.forEach(checkbox => {
             deleted_canvas.remove();
             data_arr.removeType(id);
         }
+        updatePlaybackControls();
     });
 });
 
