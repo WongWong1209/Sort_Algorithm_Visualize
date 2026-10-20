@@ -16,7 +16,7 @@ async function cocktail_sort(data, sleepTime) {
                 swapped = true;
                 data.cur = i + 1;
                 data.draw();
-                await sleep(sleepTime);
+                if (!(await data.wait(sleepTime))) return;
             }
         }
         
@@ -32,7 +32,7 @@ async function cocktail_sort(data, sleepTime) {
                 swapped = true;
                 data.cur = i;
                 data.draw();
-                await sleep(sleepTime);
+                if (!(await data.wait(sleepTime))) return;
             }
         }
         
@@ -43,8 +43,4 @@ async function cocktail_sort(data, sleepTime) {
     data.end_time = new Date().getTime();
     data.setTimeText();
     data.draw();
-}
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
 }

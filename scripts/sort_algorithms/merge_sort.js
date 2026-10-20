@@ -15,7 +15,7 @@ async function merge(data, start, mid, end, sleepTime) {
         }
         data.cur = k;
         data.draw();
-        await sleep(sleepTime);
+        if (!(await data.wait(sleepTime))) return;
         k++;
     }
     
@@ -23,7 +23,7 @@ async function merge(data, start, mid, end, sleepTime) {
         data.arr[k] = left[i];
         data.cur = k;
         data.draw();
-        await sleep(sleepTime);
+        if (!(await data.wait(sleepTime))) return;
         i++;
         k++;
     }
@@ -32,30 +32,29 @@ async function merge(data, start, mid, end, sleepTime) {
         data.arr[k] = right[j];
         data.cur = k;
         data.draw();
-        await sleep(sleepTime);
+        if (!(await data.wait(sleepTime))) return;
         j++;
         k++;
     }
 }
 
 async function mergeSortHelper(data, start, end, sleepTime) {
-    if (start >= end) return;
+    if (data.cancelled || start >= end) return;
     
     const mid = Math.floor((start + end) / 2);
     await mergeSortHelper(data, start, mid, sleepTime);
+    if (data.cancelled) return;
     await mergeSortHelper(data, mid + 1, end, sleepTime);
+    if (data.cancelled) return;
     await merge(data, start, mid, end, sleepTime);
 }
 
 async function merge_sort(data, sleepTime) {
     data.start_time = new Date().getTime();
     await mergeSortHelper(data, 0, data.arr.length - 1, sleepTime);
+    if (data.cancelled) return;
     data.cur = -1;
     data.end_time = new Date().getTime();
     data.setTimeText();
     data.draw();
-}
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
 }

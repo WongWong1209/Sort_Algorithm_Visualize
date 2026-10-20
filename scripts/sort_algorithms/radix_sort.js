@@ -23,7 +23,7 @@ async function countingSortForRadix(data, exp, sleepTime) {
         data.arr[i] = output[i];
         data.cur = i;
         data.draw();
-        await sleep(sleepTime);
+        if (!(await data.wait(sleepTime))) return;
     }
 }
 
@@ -33,14 +33,11 @@ async function radix_sort(data, sleepTime) {
 
     for (let exp = 1; Math.floor(max / exp) > 0; exp *= 10) {
         await countingSortForRadix(data, exp, sleepTime);
+        if (data.cancelled) return;
     }
 
     data.cur = -1;
     data.end_time = new Date().getTime();
     data.setTimeText();
     data.draw();
-}
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
 }

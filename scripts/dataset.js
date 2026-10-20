@@ -5,9 +5,31 @@ class Dataset {
         this.cur = -1;
         this.start_time;
         this.end_time;
+        this.cancelled = false;
+        this.pendingWaits = new Set();
+    }
+
+    cancel() {
+        this.cancelled = true;
+        for (const finish of this.pendingWaits) finish(false);
+    }
+
+    wait(ms) {
+        if (this.cancelled) return Promise.resolve(false);
+        return new Promise(resolve => {
+            let timer;
+            const finish = active => {
+                clearTimeout(timer);
+                this.pendingWaits.delete(finish);
+                resolve(active);
+            };
+            this.pendingWaits.add(finish);
+            timer = setTimeout(() => finish(!this.cancelled), ms);
+        });
     }
 
     draw() {
+        if (this.cancelled) return;
         const canvas = document.querySelector(`#${this.type}-canvas`);
         const ctx = canvas.getContext('2d');
         const unit = 8;
@@ -24,6 +46,7 @@ class Dataset {
     }
 
     setTimeText() {
+        if (this.cancelled) return;
         let time = (this.end_time - this.start_time) / 1000;
         let time_text = document.querySelector(`#${this.type}-time`) ?? document.querySelector("#single-time");
         if (time_text) time_text.innerText = `${time} s`;

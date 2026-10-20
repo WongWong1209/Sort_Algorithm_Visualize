@@ -12,7 +12,7 @@ async function bubble_sort(data, sleepTime) {
                 data.arr[j + 1] = temp;
                 data.draw();
                 count++;
-                await sleep(sleepTime);
+                if (!(await data.wait(sleepTime))) return;
             }
         }
     }
@@ -21,8 +21,4 @@ async function bubble_sort(data, sleepTime) {
     data.end_time = new Date().getTime();
     data.setTimeText();
     data.draw();
-}
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
 }

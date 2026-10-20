@@ -29,12 +29,17 @@ function resetArr() {
 
 const reset_btn = document.querySelector(".reset-btn");
 const single_time = document.querySelector("#single-time");
-document.querySelector(".btns-container").addEventListener("click", () => {
+document.querySelector(".btns-container").addEventListener("click", e => {
+    if (!e.target.closest(".algorithm-btn")) return;
+    data.cancel();
     single_time.textContent = "0 s";
-});
+}, true);
 reset_btn.addEventListener("click", () => {
+    data.cancel();
     resetArr();
-    data.arr = default_arr;
+    data = new Dataset("all");
+    data.arr = [...default_arr];
+    canvas.id = "all-canvas";
     data.draw();
     single_time.textContent = "0 s";
 });
@@ -42,7 +47,7 @@ reset_btn.addEventListener("click", () => {
 const bubble_sort_btn = document.querySelector(".bubble-sort-btn");
 bubble_sort_btn.addEventListener("click", () => {
     data = new Dataset("bubble");
-    data.arr = default_arr;
+    data.arr = [...default_arr];
     canvas.id = "bubble-canvas";
     bubble_sort(data, sleepTime);
 });
@@ -50,7 +55,7 @@ bubble_sort_btn.addEventListener("click", () => {
 const merge_sort_btn = document.querySelector(".merge-sort-btn");
 merge_sort_btn.addEventListener("click", () => {
     data = new Dataset("merge");
-    data.arr = default_arr;
+    data.arr = [...default_arr];
     canvas.id = "merge-canvas";
     merge_sort(data, sleepTime);
 });
@@ -58,7 +63,7 @@ merge_sort_btn.addEventListener("click", () => {
 const quick_sort_btn = document.querySelector(".quick-sort-btn");
 quick_sort_btn.addEventListener("click", () => {
     data = new Dataset("quick");
-    data.arr = default_arr;
+    data.arr = [...default_arr];
     canvas.id = "quick-canvas";
     quick_sort(data, 0, default_arr.length - 1, sleepTime);
 });
@@ -66,7 +71,7 @@ quick_sort_btn.addEventListener("click", () => {
 const counting_sort_btn = document.querySelector(".counting-sort-btn");
 counting_sort_btn.addEventListener("click", () => {
     data = new Dataset("counting");
-    data.arr = default_arr;
+    data.arr = [...default_arr];
     canvas.id = "counting-canvas";
     counting_sort(data, sleepTime);
 });
@@ -74,7 +79,7 @@ counting_sort_btn.addEventListener("click", () => {
 const radix_sort_btn = document.querySelector(".radix-sort-btn");
 radix_sort_btn.addEventListener("click", () => {
     data = new Dataset("radix");
-    data.arr = default_arr;
+    data.arr = [...default_arr];
     canvas.id = "radix-canvas";
     radix_sort(data, sleepTime);
 });
@@ -82,7 +87,7 @@ radix_sort_btn.addEventListener("click", () => {
 const cocktail_sort_btn = document.querySelector(".cocktail-sort-btn");
 cocktail_sort_btn.addEventListener("click", () => {
     data = new Dataset("cocktail");
-    data.arr = default_arr;
+    data.arr = [...default_arr];
     canvas.id = "cocktail-canvas";
     cocktail_sort(data, sleepTime);
 });

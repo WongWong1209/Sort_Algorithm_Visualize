@@ -25,15 +25,11 @@ async function counting_sort(data, sleepTime) {
         data.arr[i] = output[i];
         data.cur = i;
         data.draw();
-        await sleep(sleepTime);
+        if (!(await data.wait(sleepTime))) return;
     }
 
     data.cur = -1;
     data.end_time = new Date().getTime();
     data.setTimeText();
     data.draw();
-}
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
 }

@@ -24,13 +24,21 @@ function resetArr() {
         } while (true);
     }
 
-    data_arr.forEach(e => {
-        e.arr = [...default_arr];
-    });
 }
 
 function draw() {
     data_arr.forEach(e => e.draw());
+}
+
+function rebuildSelected() {
+    data_arr = data_arr.map(current => {
+        current.cancel();
+        const next = new Dataset(current.type);
+        next.arr = [...default_arr];
+        next.draw();
+        document.querySelector(`#${next.type}-time`).textContent = "0 s";
+        return next;
+    });
 }
 
 const sleep_time_text = document.querySelector(".sleep-time-text");
@@ -41,6 +49,7 @@ sleep_time_text.addEventListener("change", e => {
 
 const start_btn = document.querySelector("#start-btn");
 start_btn.addEventListener("click", () => {
+    rebuildSelected();
     data_arr.forEach(d => {
         switch (d.type) {
             case "bubble":
@@ -74,6 +83,7 @@ Array.prototype.removeType = function (type) {
     })
 
     if (index != -1) {
+        this[index].cancel();
         let rest = this.slice(index + 1);
         this.length = index;
         return this.push.apply(this, rest);
@@ -147,8 +157,6 @@ function createElement(id) {
 
 const reset_btn = document.querySelector("#reset-btn");
 reset_btn.addEventListener("click", () => {
-    let time_text = document.querySelectorAll(".timer");
-    time_text.forEach(text => text.textContent = "0 s");
     resetArr();
-    draw();
+    rebuildSelected();
 });
