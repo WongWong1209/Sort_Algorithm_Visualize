@@ -3,8 +3,8 @@ export {bubble_sort};
 async function bubble_sort(data, sleepTime) {
     data.start_time = new Date().getTime();
     let count = 0;
-    for(let i = 0; i < 99; i++) {
-        for(let j = 0; j < 99 - i; j++) {
+    for(let i = 0; i < data.arr.length - 1; i++) {
+        for(let j = 0; j < data.arr.length - 1 - i; j++) {
             if(data.arr[j] > data.arr[j + 1]) {
                 data.cur = j + 1;
                 let temp = data.arr[j];

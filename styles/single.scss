@@ -23,6 +23,21 @@ body {
         text-align: center;
     }
 
+    .data-controls {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+
+        label {
+            margin: 0;
+        }
+
+        select {
+            height: 2rem;
+        }
+    }
+
     .single-time {
         color: white;
         margin-top: 0.5rem;

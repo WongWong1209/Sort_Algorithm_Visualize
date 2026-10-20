@@ -62,6 +62,17 @@ body {
                 flex-direction: column;
             }
 
+            .data-controls {
+                display: flex;
+                flex-direction: column;
+                gap: 0.35rem;
+                margin-bottom: 1rem;
+
+                select {
+                    height: 2rem;
+                }
+            }
+
             div {
                 label {
                     color: white;

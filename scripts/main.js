@@ -4,10 +4,15 @@ import { counting_sort } from './sort_algorithms/counting_sort.js';
 import { merge_sort } from './sort_algorithms/merge_sort.js';
 import { quick_sort } from './sort_algorithms/quick_sort.js';
 import { radix_sort } from './sort_algorithms/radix_sort.js';
+import { createArray } from './data_generator.js';
 
 let sleepTime = 0;
 let data = new Dataset("all");;
 let default_arr = [];
+const size_select = document.querySelector("#array-size");
+const pattern_select = document.querySelector("#array-pattern");
+let arraySize = Number(size_select.value);
+let arrayPattern = pattern_select.value;
 const canvas = document.querySelector("canvas");
 
 resetArr();
@@ -15,16 +20,7 @@ data.arr = default_arr;
 data.draw();
 
 function resetArr() {
-    default_arr = new Array(100).fill(0);
-    for(let i = 1; i <= 100; i++) {
-        do {
-            let index = Math.floor(Math.random() * 100);
-            if(!default_arr[index]) {
-                default_arr[index] = i;
-                break;
-            }
-        } while(true);
-    }
+    default_arr = createArray(arraySize, arrayPattern);
 }
 
 const reset_btn = document.querySelector(".reset-btn");
@@ -62,7 +58,7 @@ document.querySelector(".btns-container").addEventListener("click", e => {
     single_time.textContent = "0 s";
     updatePlaybackControls();
 }, true);
-reset_btn.addEventListener("click", () => {
+function resetVisualization() {
     data.cancel();
     resetArr();
     data = new Dataset("all");
@@ -71,6 +67,27 @@ reset_btn.addEventListener("click", () => {
     data.draw();
     single_time.textContent = "0 s";
     updatePlaybackControls();
+}
+
+reset_btn.addEventListener("click", resetVisualization);
+
+size_select.addEventListener("change", event => {
+    arraySize = Number(event.currentTarget.value);
+    resetVisualization();
+});
+
+pattern_select.addEventListener("change", event => {
+    arrayPattern = event.currentTarget.value;
+    resetVisualization();
+});
+
+window.addEventListener("pageshow", () => {
+    const visibleSize = Number(size_select.value);
+    const visiblePattern = pattern_select.value;
+    if (visibleSize === arraySize && visiblePattern === arrayPattern) return;
+    arraySize = visibleSize;
+    arrayPattern = visiblePattern;
+    resetVisualization();
 });
 
 const bubble_sort_btn = document.querySelector(".bubble-sort-btn");

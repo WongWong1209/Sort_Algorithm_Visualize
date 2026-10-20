@@ -94,6 +94,15 @@ body .parts-container .setting-container .setting-outer {
   display: flex;
   flex-direction: column;
 }
+body .parts-container .setting-container .data-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+body .parts-container .setting-container .data-controls select {
+  height: 2rem;
+}
 body .parts-container .setting-container div label {
   color: white;
 }
